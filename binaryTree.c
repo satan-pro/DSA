@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 
 struct Node
 {
@@ -40,6 +41,28 @@ node completeBinaryTree(int start, int size)
     return root;
 }
 
+node simpleBinaryTree(node root, int data)
+{
+    if(root==NULL)
+    {
+        root = createNode(data);
+    }
+    else
+    {
+        if(root->left == NULL)
+        {
+            root->left = simpleBinaryTree(root->left, data);
+            printf("Inserted at left node\n");
+        }
+        else
+        {
+            root->right = simpleBinaryTree(root->right, data);
+            printf("Inserted at right node\n");
+        }
+    }
+    return root;
+}
+
 void preorder(node root)
 {
     if(root!=NULL)
@@ -72,12 +95,24 @@ void inorder(node root)
 
 int main()
 {
-    int size;
+    int size,n;
+    char ch;
     printf("Enter the size of the tree\n");
     scanf("%d", &size);
 
     node root = (node)malloc(sizeof(struct Node));
-    root = completeBinaryTree(0,size);
+    root = NULL;
+    do
+    {
+        printf("Enter the data\n");
+        scanf("%d", &n);
+        root = simpleBinaryTree(root, n);
+        printf("Do you want to enter more? (y/n)\n");
+        ch = getch();
+
+    } while (ch=='y');
+    
+   
     preorder(root);
     printf("\n");
     postorder(root);
