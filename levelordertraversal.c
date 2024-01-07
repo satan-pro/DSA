@@ -173,6 +173,7 @@ int countleaf(node root)
         countleaf(root->left);
         countleaf(root->right);
     }
+    return count;
 }
 
 int countnodes(node root)
@@ -184,6 +185,7 @@ int countnodes(node root)
         countnodes(root->left);
         countnodes(root->right);
     }
+    return count;
 }
 
 int main()
