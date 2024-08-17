@@ -82,10 +82,10 @@ class lc103 // ZigZag Level Order Traversal in Binary Tree
         		else
         			temp.add(0, curr.val);
 
+                if(curr.right!=null)
+                    q.offer(curr.right);
         		if(curr.left!=null)
         			q.offer(curr.left);
-        		if(curr.right!=null)
-        			q.offer(curr.right);
         	}
         	ans.add(temp);
         	leftToRight=!leftToRight;
