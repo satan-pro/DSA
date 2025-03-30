@@ -2,38 +2,32 @@ import java.util.*;
 public class lc71 {
         public String simplifyPath(String path) {
             Stack<String> st = new Stack<>();
-            String res = new String();
             String arr[] = path.split("/");
 
-            System.out.println(Arrays.toString(arr));
-            for(int i=0; i<arr.length; i++)
+            for(String s: arr)
             {
-                System.err.println(arr[i]);
-                if(!st.empty())
+                if(s.equals(".")||s.equals(""))
+                    continue;
+                else if(s.equals(".."))
                 {
-                   if(arr[i].equals(".."))
-                   {
+                    if(!st.isEmpty())
                         st.pop();
-                   }
                 }
-                else if(!arr[i].equals(".") && !arr[i].equals("..") && !arr[i].equals(""))
-                {
-                    st.push(arr[i]);
-                }
+                else 
+                    st.push(s);
             }
 
-            System.out.println(st);
+            StringBuilder ans = new StringBuilder("");
+            while(!st.isEmpty())
+            {
+                ans.insert(0, st.pop());
+                ans.insert(0, "/");
+            }
+            
+            if(ans.isEmpty())
+                ans.append("/");
 
-            while(!st.empty())
-            {
-                String s = st.pop();
-                res+=s;
-            }
-            if(st.empty())
-            {
-                res="/"+res;
-            }
-            return res;
+            return ans.toString();
         }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

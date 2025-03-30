@@ -15,7 +15,7 @@ class lc145 // Iterative PostOrder Traversal of Binary Tree
   }
 
   	// Using 2 Stacks Method
-	public List<Integer> postorderTraversal(TreeNode root) {
+	public List<Integer> postorderTraversal1(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
         if(root==null)
         	return ans;
@@ -37,4 +37,41 @@ class lc145 // Iterative PostOrder Traversal of Binary Tree
         }
         return ans;
     }
+
+  public List<Integer> postorderTraversal(TreeNode root) {
+    List<Integer> ans = new ArrayList<>();
+
+    if(root==null)
+      return ans;
+    Stack<TreeNode> st = new Stack<>();
+
+    TreeNode curr = root;
+    while(curr!=null || !st.isEmpty())
+    {
+      if(curr!=null)
+      {
+        st.push(curr);
+        curr = curr.left;
+      }
+      else {
+        TreeNode temp = st.peek().right;
+
+        if(temp==null)
+        {
+          temp = st.pop();
+          ans.add(temp.val);
+
+          while(!st.isEmpty() && temp==st.peek().right) {
+            temp = st.pop();
+            ans.add(temp.val);
+
+          }
+        }
+        else 
+          curr = temp;
+      }
+    }
+
+    return ans;
+  }
 }
